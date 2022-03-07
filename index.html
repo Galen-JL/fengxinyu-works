@@ -20,66 +20,85 @@
 
 <body>
   <div id="page-container">
-    <img class="title" alt="" src="image/title01.png">
-    <img class="title" alt="" src="image/title02.png">
-    <img class="title" alt="" src="image/title03.png">
+    <img class="title" alt="加载中..." data-src="image/title01.png">
+    <img class="title" alt="加载中..." data-src="image/title02.png">
+    <img class="title" alt="加载中..." data-src="image/title03.png">
 
-    <img class="zzly" alt="" src="image/zzly01.png">
-    <img class="zzly" alt="" src="image/zzly02.png">
-    <img class="zzly" alt="" src="image/zzly03.png">
+    <img class="zzly" alt="加载中..." data-src="image/zzly01.png">
+    <img class="zzly" alt="加载中..." data-src="image/zzly02.png">
+    <img class="zzly" alt="加载中..." data-src="image/zzly03.png">
 
-    <img class="cunjiu" alt="" src="image/cunjiu01.png">
-    <img class="cunjiu" alt="" src="image/cunjiu02.png">
-    <img class="cunjiu" alt="" src="image/cunjiu03.png">
+    <img class="cunjiu" alt="加载中..." data-src="image/cunjiu01.png">
+    <img class="cunjiu" alt="加载中..." data-src="image/cunjiu02.png">
+    <img class="cunjiu" alt="加载中..." data-src="image/cunjiu03.png">
 
-    <img class="ddsping" alt="" src="image/ddsping01.png">
-    <img class="ddsping" alt="" src="image/ddsping02.png">
-    <img class="ddsping" alt="" src="image/ddsping03.png">
-    <img class="ddsping" alt="" src="image/ddsping04.png">
-    <img class="ddsping" alt="" src="image/ddsping05.png">
-    <img class="ddsping" alt="" src="image/ddsping06.png">
-    <img class="ddsping" alt="" src="image/ddsping07.png">
+    <img class="ddsping" alt="加载中..." data-src="image/ddsping01.png">
+    <img class="ddsping" alt="加载中..." data-src="image/ddsping02.png">
+    <img class="ddsping" alt="加载中..." data-src="image/ddsping03.png">
+    <img class="ddsping" alt="加载中..." data-src="image/ddsping04.png">
+    <img class="ddsping" alt="加载中..." data-src="image/ddsping05.png">
+    <img class="ddsping" alt="加载中..." data-src="image/ddsping06.png">
+    <img class="ddsping" alt="加载中..." data-src="image/ddsping07.png">
 
-    <img class="zf" alt="" src="image/zf-myjiedao.png">
-    <img class="zf" alt="" src="image/zf-ylqfangguanju.png">
-    <img class="zf" alt="" src="image/zf-hsfayuan.png">
+    <img class="zf" alt="加载中..." data-src="image/zf-myjiedao.png">
+    <img class="zf" alt="加载中..." data-src="image/zf-ylqfangguanju.png">
+    <img class="zf" alt="加载中..." data-src="image/zf-hsfayuan.png">
 
-    <img class="ayguanwang" alt="" src="image/ayguanwang.png">
+    <img class="ayguanwang" alt="加载中..." data-src="image/ayguanwang.png">
 
-    <img class="xzzx" alt="" src="image/xzzx.png">
+    <img class="xzzx" alt="加载中..." data-src="image/xzzx.png">
 
-    <img class="yyhb" alt="" src="image/scrm.png">
-    <img class="yyhb" alt="" src="image/yyhb.png">
-    <img class="yyhb" alt="" src="image/yyhb02.png">
-    <img class="yyhb" alt="" src="image/yyhb03.png">
-    <img class="yyhb" alt="" src="image/yyhb04.png">
-    <img class="yyhb" alt="" src="image/yyhb05.png">
-    <img class="yyhb" alt="" src="image/yyhb06.png">
+    <img class="yyhb" alt="加载中..." data-src="image/scrm.png">
+    <img class="yyhb" alt="加载中..." data-src="image/yyhb.png">
+    <img class="yyhb" alt="加载中..." data-src="image/yyhb02.png">
+    <img class="yyhb" alt="加载中..." data-src="image/yyhb03.png">
+    <img class="yyhb" alt="加载中..." data-src="image/yyhb04.png">
+    <img class="yyhb" alt="加载中..." data-src="image/yyhb05.png">
+    <img class="yyhb" alt="加载中..." data-src="image/yyhb06.png">
 
-    <img class="end" alt="" src="image/end.png">
+    <img class="end" alt="加载中..." data-src="image/end.png">
   </div>
 
+
   <script>
+    // 获取所有的图片标签
+    const imgs = document.getElementsByTagName("img");
+    // 获取可视区域的高度
+    const viewHeight =
+      window.innerHeight || document.documentElement.clientHeight;
+    // num用于统计当前显示到了哪一张图片，避免每次都从第一张图片开始检查是否露出
+    let num = 0;
+
     function lazyload() {
-      var images = document.getElementsByTagName('img');
-      var len = images.length;
-      var n = 0; //存储图片加载到的位置，避免每次都从第一张图片开始遍历
-      return function() {
-        var seeHeight = document.documentElement.clientHeight;
-        var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-        for (var i = n; i < len; i++) {
-          if (images[i].offsetTop < seeHeight + scrollTop) {
-            if (images[i].getAttribute('src') === 'images/loading.gif') {
-              images[i].src = images[i].getAttribute('data-src');
-            }
-            n = n + 1;
-          }
+      console.log("滚动...");
+      for (let i = num; i < imgs.length; i++) {
+        // 用可视区域高度减去元素顶部距离可视区域顶部的高度
+        let distance = viewHeight - imgs[i].getBoundingClientRect().top;
+        // 如果可视区域高度大于等于元素顶部距离可视区域顶部的高度，说明元素露出
+        if (distance >= 0) {
+          // 给元素写入真实的src，展示图片
+          imgs[i].src = imgs[i].getAttribute("data-src");
+          // 前i张图片已经加载完毕，下次从第i+1张开始检查是否露出
+          num = i + 1;
         }
       }
     }
-    var loadImages = lazyload();
-    loadImages(); //初始化首页的页面图片
-    window.addEventListener('scroll', loadImages, false);
+
+    // 防抖函数
+    function debounce(fn, delay = 500) {
+      let timer = null;
+      return function(...args) {
+        if (timer) clearTimeout(timer);
+        timer = setTimeout(() => {
+          fn.call(this, args);
+        }, delay);
+      };
+    }
+
+    // 是的页面初始化是加载首屏图片
+    window.onload = lazyload;
+    // 监听Scroll事件，为了防止频繁调用，使用防抖函数优化一下
+    window.addEventListener("scroll", debounce(lazyload, 600), false);
   </script>
 
 </body>
