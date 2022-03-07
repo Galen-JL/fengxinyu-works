@@ -20,51 +20,67 @@
 
 <body>
   <div id="page-container">
-    <div class="">
-      <img class="" alt="" src="image/title01.png">
-      <img class="" alt="" src="image/title02.png">
-      <img class="" alt="" src="image/title03.png">
-    </div>
-    <div class="">
-      <img class="" alt="" src="image/zzly01.png">
-      <img class="" alt="" src="image/zzly02.png">
-    </div>
-    <div class="">
-      <img class="" alt="" src="image/zzly03.png">
-    </div>
-    <div class="">
-      <img class="" alt="" src="image/cunjiu01.png">
-      <img class="" alt="" src="image/cunjiu02.png">
-      <img class="" alt="" src="image/cunjiu03.png">
-    </div>
-    <div class="">
-      <img class="" alt="" src="image/ddsping01.png">
-      <img class="" alt="" src="image/ddsping02.png">
-      <img class="" alt="" src="image/ddsping03.png">
-      <img class="" alt="" src="image/ddsping04.png">
-      <img class="" alt="" src="image/ddsping05.png">
-      <img class="" alt="" src="image/ddsping06.png">
-      <img class="" alt="" src="image/ddsping07.png">
-    </div>
-    <div class="">
-      <img class="" alt="" src="image/zf-myjiedao.png">
-      <img class="" alt="" src="image/zf-ylqfangguanju.png">
-      <img class="" alt="" src="image/zf-hsfayuan.png">
-    </div>
-    <div class="">
-      <img class="" alt="" src="image/ayguanwang.png">
-    </div>
-    <div class=""><img class="" alt="" src="image/xzzx.png"></div>
-    <div class=""><img class="" alt="" src="image/scrm.png"></div>
-    <div class=""><img class="" alt="" src="image/yyhb.png"></div>
-    <div class=""><img class="" alt="" src="image/yyhb02.png"></div>
-    <div class=""><img class="" alt="" src="image/yyhb03.png"></div>
-    <div class=""><img class="" alt="" src="image/yyhb04.png"></div>
-    <div class=""><img class="" alt="" src="image/yyhb05.png"></div>
-    <div class=""><img class="" alt="" src="image/yyhb06.png"></div>
-    <div class=""><img class="" alt="" src="image/end.png"></div>
+    <img class="title" alt="" src="image/title01.png">
+    <img class="title" alt="" src="image/title02.png">
+    <img class="title" alt="" src="image/title03.png">
+
+    <img class="zzly" alt="" src="image/zzly01.png">
+    <img class="zzly" alt="" src="image/zzly02.png">
+    <img class="zzly" alt="" src="image/zzly03.png">
+
+    <img class="cunjiu" alt="" src="image/cunjiu01.png">
+    <img class="cunjiu" alt="" src="image/cunjiu02.png">
+    <img class="cunjiu" alt="" src="image/cunjiu03.png">
+
+    <img class="ddsping" alt="" src="image/ddsping01.png">
+    <img class="ddsping" alt="" src="image/ddsping02.png">
+    <img class="ddsping" alt="" src="image/ddsping03.png">
+    <img class="ddsping" alt="" src="image/ddsping04.png">
+    <img class="ddsping" alt="" src="image/ddsping05.png">
+    <img class="ddsping" alt="" src="image/ddsping06.png">
+    <img class="ddsping" alt="" src="image/ddsping07.png">
+
+    <img class="zf" alt="" src="image/zf-myjiedao.png">
+    <img class="zf" alt="" src="image/zf-ylqfangguanju.png">
+    <img class="zf" alt="" src="image/zf-hsfayuan.png">
+
+    <img class="ayguanwang" alt="" src="image/ayguanwang.png">
+
+    <img class="xzzx" alt="" src="image/xzzx.png">
+
+    <img class="yyhb" alt="" src="image/scrm.png">
+    <img class="yyhb" alt="" src="image/yyhb.png">
+    <img class="yyhb" alt="" src="image/yyhb02.png">
+    <img class="yyhb" alt="" src="image/yyhb03.png">
+    <img class="yyhb" alt="" src="image/yyhb04.png">
+    <img class="yyhb" alt="" src="image/yyhb05.png">
+    <img class="yyhb" alt="" src="image/yyhb06.png">
+
+    <img class="end" alt="" src="image/end.png">
   </div>
 
+  <script>
+    function lazyload() {
+      var images = document.getElementsByTagName('img');
+      var len = images.length;
+      var n = 0; //存储图片加载到的位置，避免每次都从第一张图片开始遍历
+      return function() {
+        var seeHeight = document.documentElement.clientHeight;
+        var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+        for (var i = n; i < len; i++) {
+          if (images[i].offsetTop < seeHeight + scrollTop) {
+            if (images[i].getAttribute('src') === 'images/loading.gif') {
+              images[i].src = images[i].getAttribute('data-src');
+            }
+            n = n + 1;
+          }
+        }
+      }
+    }
+    var loadImages = lazyload();
+    loadImages(); //初始化首页的页面图片
+    window.addEventListener('scroll', loadImages, false);
+  </script>
 
 </body>
 
